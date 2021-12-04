@@ -1,6 +1,8 @@
+use std::num::ParseIntError;
+
 #[aoc_generator(day1)]
-fn ints(input: &str) -> Vec<u32> {
-    input.lines().filter_map(|dep| dep.parse().ok()).collect()
+fn ints(input: &str) -> Result<Vec<u32>, ParseIntError> {
+    input.lines().map(|dep| dep.parse()).collect()
 }
 
 #[aoc(day1, part1)]
@@ -29,11 +31,14 @@ pub mod tests {
 263";
 
     use super::{ints, part1, part2};
+    use std::num::ParseIntError;
 
     #[test]
-    fn solve_day_1() {
-        let input = ints(INPUT);
+    fn solve_day_1() -> Result<(), ParseIntError> {
+        let input = ints(INPUT)?;
         assert_eq!(part1(&input), 7);
         assert_eq!(part2(&input), 5);
+
+        Ok(())
     }
 }
