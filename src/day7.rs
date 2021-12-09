@@ -8,7 +8,7 @@ fn parse(input: &str) -> Result<Vec<i32>, ParseIntError> {
 #[aoc(day7, part1)]
 fn part1(input: &[i32]) -> i32 {
     let mut prev = i32::MAX;
-    for x in 0.. {
+    for target in 0.. {
         let new_fuel = input.iter().map(|x| (target - x).abs()).sum();
         if new_fuel > prev {
             return prev;
@@ -22,7 +22,7 @@ fn part1(input: &[i32]) -> i32 {
 #[aoc(day7, part2)]
 fn part2(input: &[i32]) -> i32 {
     let mut prev = i32::MAX;
-    for x in 0.. {
+    for target in 0.. {
         let new_fuel = input
             .iter()
             .map(|x| {
@@ -38,10 +38,6 @@ fn part2(input: &[i32]) -> i32 {
 
     unreachable!()
 }
-
-fn calc_fuel(input: &[i32], target: i32) -> i32 {}
-
-fn calc_fuel_second(input: &[i32], target: i32) -> i32 {}
 
 #[cfg(test)]
 pub mod tests {
