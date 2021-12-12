@@ -30,12 +30,10 @@ impl CaveMap {
         visit_flag: bool,
         cave: &Cave,
     ) -> HashSet<Cave> {
-        let mut forbidden = HashSet::default();
-        forbidden.insert(Cave::Small("start".to_string()));
         if visit_flag {
-            return &self.links[cave] - &forbidden;
+            return self.links[cave].clone();
         }
-        &(&self.links[cave] - visited) - &forbidden
+        &self.links[cave] - visited
     }
 }
 
@@ -114,8 +112,7 @@ fn part1(input: &CaveMap) -> usize {
 fn part2(input: &CaveMap) -> usize {
     let mut open: Vec<CavePath> = Vec::new();
     let mut total_path = 0;
-    let mut closed = HashSet::default();
-    closed.insert(Cave::Small("start".to_string()));
+    let closed = HashSet::default();
     open.push(CavePath {
         head: Cave::Small("start".to_string()),
         closed,
