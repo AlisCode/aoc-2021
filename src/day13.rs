@@ -88,11 +88,11 @@ fn display_code(points: &Vec<Point>) -> String {
         .fold((0, 0), |max, p| (max.0.max(p.x), max.1.max(p.y)));
     let points = points.iter().map(|p| (p.x, p.y)).collect::<HashSet<_>>();
     let mut output = String::new();
-    for x in 0..=max_x {
+    for y in 0..=max_y {
         output += "\n";
-        for y in 0..=max_y {
+        for x in 0..=max_x {
             if points.contains(&(x, y)) {
-                output += "#";
+                output += "█";
             } else {
                 output += " ";
             }
@@ -102,7 +102,6 @@ fn display_code(points: &Vec<Point>) -> String {
 }
 
 fn do_fold(points: &mut Vec<Point>, fold: &FoldInstruction) {
-    // 10 fold 7 => 4     => 10-7 = 3 7-3 = 4
     for p in points.iter_mut().filter(|p| match fold {
         FoldInstruction::X(i) => p.x > *i,
         FoldInstruction::Y(i) => p.y > *i,
@@ -140,9 +139,17 @@ pub mod tests {
 fold along y=7
 fold along x=5";
 
+    const OUTPUT_PART_2: &'static str = "
+█████
+█   █
+█   █
+█   █
+█████";
+
     #[test]
     fn should_work() {
         let data = parse(INPUT);
         assert_eq!(part1(&data), 17);
+        assert_eq!(part2(&data), OUTPUT_PART_2);
     }
 }
